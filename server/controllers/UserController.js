@@ -2,8 +2,9 @@
 // hhtp://localhost:4000/api/user/webhooks
 import { Webhook } from "svix"
 import userModel from "../models/userModel.js";
+// import clerkWebhooks from "../middlewares/auth.js";
 
-const clearkWebhooks = async (req, res) => {
+const clerkWebhooks = async (req, res) => {
     try {
         const whook = new Webhook(process.env.CLERK_WEBHOOKS_SECRET);
 
@@ -57,4 +58,20 @@ const clearkWebhooks = async (req, res) => {
     }
 }
 
-export { clearkWebhooks };
+// export { clearkWebhooks };
+
+//API controller Function to manage creadit data with database
+
+const userCredits = async (req, res) => {
+    try {
+        const { clerkId } = req.body;
+        const userData= await userModel.findOne({ clerkId });
+        res.json({ success: true, credits: userData.creditBalance });
+
+    } catch (e) {
+        console.error(e.message);
+        res.json({success: false, message:e})
+    }
+}
+export { clerkWebhooks,userCredits };
+    
