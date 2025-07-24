@@ -6,8 +6,13 @@ const authUser = (req, res, next) => {
     const token = req.headers.authorization;
     
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.clerkId = decoded.clerkId;
+         const {token} = req.headers;
+        if (!token) {
+            return res.json({success:false, message: "No authorized provided provided" });
+        }
+
+        const token_decode = jwt.decode(token); 
+        req.body.clerkId = token_decode.clerkId;
         next();
     } catch (error) {
         console.error(error.message);

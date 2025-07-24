@@ -5,11 +5,14 @@
 import Result from './pages/Result'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import { SignInButton } from '@clerk/clerk-react'
 
  const App = () => {
    return (
       <div className='min-h-screen bg-slate-50'>
+        <ToastContainer position='bottom-right'/>
         <NavBar />
         {/* <SignInButton /> */}
         <Routes>
