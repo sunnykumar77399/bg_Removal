@@ -5,7 +5,7 @@ import userModel from "../models/userModel.js";
 
 const clerkWebhooks = async (req, res) => {
     try {
-        const whook = new Webhook(process.env.CLERK_WEBHOOKS_SECRET);
+        const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
 
         await whook.verify(JSON.stringify(req.body),{
             "svix-id": req.headers['svix-id'],
@@ -20,12 +20,12 @@ const clerkWebhooks = async (req, res) => {
                 const userData = {
                     clerkId: data.id,
                     email: data.email_addresses[0].email_address,
-                    photo: data.profile_image_url,
+                    photo: data.profile_image_url, //image url
                     firstName: data.first_name,
                     lastName: data.last_name
                 }
-                await userModel.create(userData);
-                res.json({});
+                await userModel.create(userData)
+                res.json({})
                 break;
             }
              case "user.updated":{
@@ -71,6 +71,7 @@ const userCredits = async (req, res) => {
         res.json({success: false, message:e})
     }
 }
+console.log(userCredits.creditBalance);
 export { clerkWebhooks,userCredits };
     
 
