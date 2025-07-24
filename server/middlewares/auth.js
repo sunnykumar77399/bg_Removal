@@ -16,7 +16,7 @@ const authUser = (req, res, next) => {
         next();
     } catch (error) {
         console.error(error.message);
-        res.json({ message:error.message });
+        res.json({success: true, message:error.message });
     }
 }
 
